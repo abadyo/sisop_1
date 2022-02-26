@@ -15,7 +15,7 @@ cat log_website_daffainfo.log | awk '{gsub(/"/, "", $1); print $1 }' | awk -F: '
 				res+=arr[i]
 			}
 			res=res/count
-			printf "rata rata serangan perjam adalah sebanyak %.3f request per jam\n\n", res
+			printf "rata-rata serangan tiap jam adalah %.2f request per jam\n\n", res
 		}' >> ./forensic_log_website_daffainfo_log/ratarata.txt
 
 cat log_website_daffainfo.log | awk '{gsub(/,/, " ", $1); print $1 }' | awk -F: '{gsub(/:/, " ", $1); arr[$1]++}
@@ -28,7 +28,7 @@ cat log_website_daffainfo.log | awk '{gsub(/,/, " ", $1); print $1 }' | awk -F: 
                 big=arr[flag]
             }
         }
-        print "yang paling banyak mengakses server adalah: " flag " sebanyak " big " request\n"
+        print "yang paling banyak mengakses website adalah: " flag " sebanyak " big " request\n"
     }' >> ./forensic_log_website_daffainfo_log/result.txt
     
 cat log_website_daffainfo.log | awk '/curl/ { ++n } END {
