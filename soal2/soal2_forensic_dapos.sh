@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ ! -d ./ forensic_log_website_daffainfo_log ] 
+if [ ! -d ./forensic_log_website_daffainfo_log ] 
     then
-        mkdir ./ forensic_log_website_daffainfo_log
+        mkdir ./forensic_log_website_daffainfo_log
     else
-        rm -rf ./ forensic_log_website_daffainfo_log
-	    mkdir ./ forensic_log_website_daffainfo_log
+        rm -rf ./forensic_log_website_daffainfo_log
+	    mkdir ./forensic_log_website_daffainfo_log
 fi
 
 cat log_website_daffainfo.log | awk '{gsub(/"/, "", $1); print $1 }' | awk -F: '{gsub(/:/, " ", $1); arr[$3]++}
@@ -16,7 +16,7 @@ cat log_website_daffainfo.log | awk '{gsub(/"/, "", $1); print $1 }' | awk -F: '
 			}
 			res=res/count
 			printf "rata rata serangan perjam adalah sebanyak %.3f request per jam\n\n", res
-		}' >> ./folder/ratarata.txt
+		}' >> ./forensic_log_website_daffainfo_log/ratarata.txt
 
 cat log_website_daffainfo.log | awk '{gsub(/,/, " ", $1); print $1 }' | awk -F: '{gsub(/:/, " ", $1); arr[$1]++}
     END {
@@ -29,14 +29,14 @@ cat log_website_daffainfo.log | awk '{gsub(/,/, " ", $1); print $1 }' | awk -F: 
             }
         }
         print "yang paling banyak mengakses server adalah: " flag " sebanyak " big " request\n"
-    }' >> ./folder/result.txt
+    }' >> ./forensic_log_website_daffainfo_log/result.txt
     
 cat log_website_daffainfo.log | awk '/curl/ { ++n } END {
-    print "ada " n " request yang menggunakan curl sebagai user-agent\n"}' >> ./folder/result.txt
+    print "ada " n " request yang menggunakan curl sebagai user-agent\n"}' >> ./forensic_log_website_daffainfo_log/result.txt
 
 cat log_website_daffainfo.log | awk -F: '/2022:02/ {gsub(/"/, "", $1) arr[$1]++ }
     END {
         for (i in arr) {
             print i " mengakses website pada jam 2 pagi"
         }
-     }' >> ./folder/result.txt
+     }' >> ./forensic_log_website_daffainfo_log/result.txt
