@@ -1,4 +1,4 @@
-# soal-shift-siop-modul-1-IT13-2022
+# soal-shift-siop-modul-1-ITA13-2022
 
 Sisop modul 1
 
