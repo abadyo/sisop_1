@@ -2,6 +2,14 @@
 
 Sisop modul 1
 
+| NRP        | Nama                            |
+| ------------ | --------------------------------- |
+| 5027201052 | Abadila Barasmara Bias Dewandra |
+| 5027201055 | Banabil Fawazaim Muhammad       |
+
+# Soal 1
+
+
 # Soal 2
 
 Pembahasan soal no 2
@@ -55,3 +63,5 @@ cat log_website_daffainfo.log | awk -F: '/2022:02/ {gsub(/"/, "", $1) arr[$1]++ 
 
 ## Kendala yang dialami
 Awal-awal masih tidak tahu cara mengakses log di website, tetapi baru ditemukan file lognya H-1.
+
+# Soal 3
