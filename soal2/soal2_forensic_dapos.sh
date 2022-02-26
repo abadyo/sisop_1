@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ ! -d ./folder ] 
+if [ ! -d ./ forensic_log_website_daffainfo_log ] 
     then
-        mkdir ./folder
+        mkdir ./ forensic_log_website_daffainfo_log
     else
-        rm -rf ./folder
-	    mkdir ./folder
+        rm -rf ./ forensic_log_website_daffainfo_log
+	    mkdir ./ forensic_log_website_daffainfo_log
 fi
 
 cat log_website_daffainfo.log | awk '{gsub(/"/, "", $1); print $1 }' | awk -F: '{gsub(/:/, " ", $1); arr[$3]++}
