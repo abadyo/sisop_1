@@ -189,3 +189,65 @@ dimana```awk -F: '/2022:02/ {gsub(/"/, "", $1) arr[$1]++ }``` berfungsi untuk me
 2. Terdapat revisi untuk mencari rata-rata dimana kami memasukkan line pertama yang mana merupakan cara membaca format lognya. Sehingga, solusi yang kami dapatkan adalah mencari string yang dimiliki log yang dimaksud tanpa memasukkan line pertama ke dalam perhitungan, yakni dengan menambahkan /2022/ ke dalam awk sehingga menjadi ```awk -F: '/2022/ {gsub(/:/, " ", $1); arr[$3]++}```
 
 # Soal 3
+
+source [code](https://gitlab.com/sisop_warrior/soal-shift-siop-modul-1-it13-2022/-/tree/main/soal3)
+
+*Terdapat 2 code yaitu [minutes_log.sh](https://gitlab.com/sisop_warrior/soal-shift-sisop-modul-1-ita13-2022/-/blob/main/soal3/minute_log.sh) untuk pencatatan log per menit dan [aggregate_minutes_to_hourly.sh](https://gitlab.com/sisop_warrior/soal-shift-sisop-modul-1-ita13-2022/-/blob/main/soal3/aggregate_minutes_to_hourly_log.sh) yang menangani pencatatan log per jam berdasarkan log per menit*
+
+**Deskripsi Soal**
+
+Ubay sangat suka dengan komputernya. Suatu saat komputernya crash secara tiba-tiba :(. Tentu saja Ubay menggunakan linux. Akhirnya Ubay pergi ke tukang servis untuk memperbaiki laptopnya. Setelah selesai servis, ternyata biaya servis sangatlah mahal sehingga ia harus menggunakan dana kenakalannya untuk membayar biaya servis tersebut. Menurut Mas Tukang Servis, laptop Ubay overload sehingga mengakibatkan crash pada laptopnya. Karena tidak ingin hal serupa terulang, Ubay meminta kalian untuk membuat suatu program monitoring resource yang tersedia pada komputer.
+
+Buatlah program monitoring resource pada komputer kalian. Cukup monitoring ram dan monitoring size suatu directory. Untuk ram gunakan command `free -m`. Untuk disk gunakan command `du -sh <target_path>`. Catat semua metrics yang didapatkan dari hasil `free -m`. Untuk hasil `du -sh <target_path>` catat size dari path directory tersebut. Untuk target_path yang akan dimonitor adalah /home/{user}/.
+
+
+### Soal 3a.
+
+**Deskripsi Soal**
+
+Masukkan semua metrics ke dalam suatu file log bernama metrics_{YmdHms}.log. {YmdHms} adalah waktu disaat file script bash kalian dijalankan. Misal dijalankan pada 2022-01-31 15:00:00, maka file log yang akan tergenerate adalah metrics_20220131150000.log.
+
+**Pembahasan**
+
+Disini kita akan membuat file bernama `minute_log.sh` dimana file ini akan menangani pencatatan log dari `free -m` dan `du -sh <target_path>`. Untuk target pathnya kita bisa menggunakan variabel `saya` untuk menyimpan `$(whoami)` dimana itu untuk mendapatkan data nama usernya lalu ditempel ke `/home/$saya`. Dalam mendapatkan nilainya nanti dalam pemanggilan `free -m` akan di awk kan yang pertama Memnya lalu Swapnya Dimana urutan nilainya tidak akan berubah-ubah untuk pemanggilan sebanyak apapun. Lalu dalam mendapatkan nilai `du -sh <target path>` akan diawk juga dengan mengambil nilai yang pertama. Setelah datanya didapatkan akan disambungkan, dan diprint bersama dengan line `mem_total,mem_used,mem_free,mem_shared,mem_buff,mem_available,swap_total,swap_used,swap_free,path,path_size` sebagai persyaratan yang ada di soal.
+
+### Soal 3b.
+
+**Deskripsi Soal**
+
+Script untuk mencatat metrics diatas diharapkan dapat berjalan otomatis pada setiap menit.
+
+**Pembahasan**
+
+Untuk otomatisasinya akan ditangani oleh cron dimana linenya adalah 
+
+```
+* * * * * /{path file}/minute_log.sh
+```
+
+Dan kita menggunakan `* * * * *` karena ini adalah menjalankan tugasnya setiap menit.
+
+### Soal 3c.
+
+**Deskripsi Soal**
+
+Kemudian, buat satu script untuk membuat agregasi file log ke satuan jam. Script agregasi akan memiliki info dari file-file yang tergenerate tiap menit. Dalam hasil file agregasi tersebut, terdapat nilai minimum, maximum, dan rata-rata dari tiap-tiap metrics. File agregasi akan ditrigger untuk dijalankan setiap jam secara otomatis. Berikut contoh nama file hasil agregasi metrics_agg_2022013115.log dengan format metrics_agg_{YmdH}.log
+
+**Pembahasan**
+
+Kita akan membuat file baru bernama `aggregate_minutes_to_hourly_log.sh
+` dimana akan bertanggung jawab dalam penkonversi dari menit ke jam. Untuk mendapatkan seluruh log yang berhubungan dengan jam tersebut maka kita akan listing terlebih dahulu dengan `ls log/metrics_$current_date*` dimana variable `current_date` akan menyimpan tanggal dan jam pada saat itu. Setelah didapatkan list nya kita akan mengunjungi semua hasil listingnya dengan hanya mengambil nilai yang ada di metrics.log. Semua nilai akan ditaruh ke dalam `dummy.txt`.
+
+Setelah semua nilainya didapatkan, kita akan awk nilainya dan masing-masing tipe akan mendapatkan BEGIN yang berupa nilai minimum=99999, maximum=0, dan sum=0. Disetiap rekursi akan dicek di minimum dan maximum, dan ditambahkan di sum. Setelah rekursi berakhir akan didapatkan averagenya lalu diprint `kemetrics_agg_{YmdH}.log` dan file `dummy.txt` akan dihapus.
+
+### Soal 3d.
+
+**Deskripsi Soal**
+
+Karena file log bersifat sensitif pastikan semua file log hanya dapat dibaca oleh user pemilik file.
+
+**Pembahasan**
+
+Pada setiap akhir code akan ditambahkan perintah `chmod 700` dimana itu hanya memberikan akses kepada user pemilik file dan menjadikan read only file.
+
+*Masukan Gambar Disini*
