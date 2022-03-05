@@ -235,10 +235,17 @@ Kemudian, buat satu script untuk membuat agregasi file log ke satuan jam. Script
 
 **Pembahasan**
 
-Kita akan membuat file baru bernama `aggregate_minutes_to_hourly_log.sh
-` dimana akan bertanggung jawab dalam penkonversi dari menit ke jam. Untuk mendapatkan seluruh log yang berhubungan dengan jam tersebut maka kita akan listing terlebih dahulu dengan `ls log/metrics_$current_date*` dimana variable `current_date` akan menyimpan tanggal dan jam pada saat itu. Setelah didapatkan list nya kita akan mengunjungi semua hasil listingnya dengan hanya mengambil nilai yang ada di metrics.log. Semua nilai akan ditaruh ke dalam `dummy.txt`.
+Kita akan membuat file baru bernama `aggregate_minutes_to_hourly_log.sh` dimana akan bertanggung jawab dalam penkonversi dari menit ke jam. Untuk mendapatkan seluruh log yang berhubungan dengan jam tersebut maka kita akan listing terlebih dahulu dengan `ls log/metrics_$current_date*` dimana variable `current_date` akan menyimpan tanggal dan jam pada saat itu. Setelah didapatkan list nya kita akan mengunjungi semua hasil listingnya dengan hanya mengambil nilai yang ada di metrics.log. Semua nilai akan ditaruh ke dalam `dummy.txt`.
 
 Setelah semua nilainya didapatkan, kita akan awk nilainya dan masing-masing tipe akan mendapatkan BEGIN yang berupa nilai minimum=99999, maximum=0, dan sum=0. Disetiap rekursi akan dicek di minimum dan maximum, dan ditambahkan di sum. Setelah rekursi berakhir akan didapatkan averagenya lalu diprint `kemetrics_agg_{YmdH}.log` dan file `dummy.txt` akan dihapus.
+
+Dan juga akan ditambahkan di cron dengan line:
+
+```
+@hourly /{path_file}/aggregate_minutes_to_hourly_log.sh
+```
+
+Dimana setiap jam akan mengeksekusi file tersebut.
 
 ### Soal 3d.
 
