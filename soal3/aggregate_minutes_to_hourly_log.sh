@@ -1,9 +1,9 @@
 #!bin/bash
 
 current_date=$(date "+%Y%m%d%H")
-list_files=$(ls log/metrics_$current_date*)
+listfiles=$(ls log/metrics_$current_date*)
 
-for FILE in $list_files 
+for FILE in $listfiles 
 do
 	cat $FILE | grep -v mem >> dummy.txt
 done
