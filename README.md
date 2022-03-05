@@ -131,22 +131,27 @@ fi
 ```
 2. Untuk mencari rata-rata, ambil string jam tiap request. lalu masukkan ke dalam array  tiap jam. Saat dimasukkan, tambah nilai 1. Kemudian lakukan loop untuk menghitung banyak jam dan menjumlah total akses tiap jam. Kemudian bagi jumlah akses dengan total jam untuk mencari rata-rata. Output dimasukkan ke dalam rata-rata.txt.
 ```bash
-#menghitung banyak akses tiap jam
-awk '{gsub(/"/, "", $1); print $1 }' | awk -F: '{gsub(/:/, " ", $1); arr[$3]++}
+
 
 #menghitung rata-rata
-END {
+cat log_website_daffainfo.log | awk '{gsub(/"/, "", $1); print $1 }' | awk -F: '/2022/ {gsub(/:/, " ", $1); arr[$3]++}
+		END {
+            hasil=0
 			for (i in arr) {
 				count++
 				res+=arr[i]
 			}
-			res=res/count
-			printf "rata rata serangan perjam adalah sebanyak %.3f request per jam\n\n", res
-		}'
+			hasil=res/count
+			printf "rata rata serangan perjam adalah sebanyak %.3f request per jam %d %d\n\n", hasil, count, res
+		}' >> ./folder/ratarata.txt
 ```
+dimana ```awk '{gsub(/"/, "", $1); print $1 }' | awk -F: '/2022/ {gsub(/:/, " ", $1); arr[$3]++} ``` berfungsi untuk mengambil string jam masing-masing dan memasukkan nilai ke dalam array sekaligus increment value dari alamat array tersebut agar menyimpan berapa banyak ip address yang mengakses pada jam itu.
+Setelah itu dilakukan algoritma rata-rata dengan menghitung total aktivitas dibagi jam yang ada.
+
 3. Untuk mencari IP address terbanyak, ambil string IP address pertama. lalu masukkan ke dalam string, yang mana akan tambah satu tiap string sama ditemukan. Lalu melakukan algoritma menemukan nilai terbesar dalam array.
 ```bash
-END {
+cat log_website_daffainfo.log | awk '{gsub(/,/, " ", $1); print $1 }' | awk -F: '{gsub(/:/, " ", $1); arr[$1]++}
+    END {
         big=0
         flag
         for (i in arr) {
@@ -156,17 +161,31 @@ END {
             }
         }
         print "yang paling banyak mengakses server adalah: " flag " sebanyak " big " request\n"
+    }' >> ./folder/result.txt
 ```
+dimana ``` awk '{gsub(/,/, " ", $1); print $1 }' | awk -F: '{gsub(/:/, " ", $1); arr[$1]++}``` berfungsi untuk melihat alamat IP address di string dan menyimpannya ke dalam array sekaligus increment value array setiap nilai yang sama. lalu lakukan algortima mencari nilai terbesar.
+
 4. Untuk mencari curl, tinggal mencari kata kunci curl dengan awk.
 ```bash
-cat log_website_daffainfo.log | awk '/curl/ { ++n } END
+cat log_website_daffainfo.log | awk '/curl/ { ++n } END {
+    print "ada " n " request yang menggunakan curl sebagai user-agent\n"}' >> ./folder/result.txt
 ```
+dimana ```awk '/curl/ { ++n }``` berfungsi untuk menghitung line log yang mengandung string curl.
+
+
 5. Untuk melihat ip address yang mengakses pa jam 2 pagi, mengambil string jam. Lalu masukkan ke dalam array. lalu print array yang mengakses pada pukul 2 pagi.
 ```bash
 cat log_website_daffainfo.log | awk -F: '/2022:02/ {gsub(/"/, "", $1) arr[$1]++ }
+    END {
+        for (i in arr) {
+            print i " mengakses website pada jam 2 pagi"
+        }
+     }' >> ./folder/result.txt
 ``` 
+dimana```awk -F: '/2022:02/ {gsub(/"/, "", $1) arr[$1]++ }``` berfungsi untuk memasukkan IP address di paremeter pertama ke dalam array. (untuk perhitungan di biarkan ada)
 
 ## Kendala yang dialami
-Awal-awal masih tidak tahu cara mengakses log di website, tetapi baru ditemukan file lognya H-1.
+1. Awal-awal masih tidak tahu cara mengakses log di website, tetapi baru ditemukan file lognya H-1.
+2. Terdapat revisi untuk mencari rata-rata dimana kami memasukkan line pertama yang mana merupakan cara membaca format lognya. Sehingga, solusi yang kami dapatkan adalah mencari string yang dimiliki log yang dimaksud tanpa memasukkan line pertama ke dalam perhitungan, yakni dengan menambahkan /2022/ ke dalam awk sehingga menjadi ```awk -F: '/2022/ {gsub(/:/, " ", $1); arr[$3]++}```
 
 # Soal 3
