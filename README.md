@@ -273,4 +273,4 @@ Kode Cron:
 
 Hasil Agregasi log:
 
-![Hourly_log](https://gitlab.com/sisop_warrior/soal-shift-sisop-modul-1-ita13-2022/-/blob/main/Gambar/aggregate_minutes_t_hourly_no_3.PNG)
+![alt text](https://gitlab.com/sisop_warrior/soal-shift-sisop-modul-1-ita13-2022/-/blob/main/Gambar/aggregate_minutes_t_hourly_no_3.PNG?raw=true)
