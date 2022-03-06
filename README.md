@@ -32,7 +32,9 @@ Kita akan membuat 2 file shell yaitu
 [register.sh](https://gitlab.com/sisop_warrior/soal-shift-siop-modul-1-it13-2022/-/blob/main/soal1/register.sh) menangani register user baru
 dan 
 [main.sh](https://gitlab.com/sisop_warrior/soal-shift-siop-modul-1-it13-2022/-/blob/main/soal1/main.sh) yang menangani kegiatan login user*
+
 ![Directory user](Gambar/soal1_1.PNG)
+
 ![File .sh](Gambar/soal1_2.PNG)
 
 ### Soal 1b.
@@ -71,6 +73,8 @@ Setelah `password` sudah sesuai dengan kriteria maka kita akan mengecek apakah `
 
 Lalu `username` akan dicek apakah sudah unik dari data `users/user.txt` dengan menggunakan `awk -v var="$username" '{ if( $1==var) printf "%s\n", $1}' users/user.txt` jika hasil `awk` tidak mengeluarkan apa-apa, berarti `username` adalah unik dan data `username` dan `password` akan dimasukan ke dalam `users/user.txt` .
 
+![File .sh](Gambar/soal1_3.PNG)
+
 ### Soal 1c.
 
 **Deskripsi Soal**
@@ -93,6 +97,8 @@ dan
 [main.sh](https://gitlab.com/sisop_warrior/soal-shift-siop-modul-1-it13-2022/-/blob/main/soal1/main.sh) akan kita masukan ke dalam `users/log.txt` dan setiap ERROR dan SUCCESS yang dilakukan oleh user akan dituliskan dengan `echo "$(date +%D) $(date +%T) **MESSAGE**" >> users/log.txt` dimana `>>` akan menambah log ke file `log.txt`.
 
 Untuk pengecekan login dari user kita akan menggunakan `awk` `username` dan `password` ke `user.txt`. Jika hasil `awk` ada maka user berhasil login.
+
+![File .sh](Gambar/soal1_4.PNG)
 
 ### Soal 1d.
 
@@ -117,6 +123,21 @@ Lalu untuk penamaan file yang akan didownload kita akan menggunakan acuan `hitun
 Setelah gambar sudah didownload dan dinamai, kita akan zip direktori tersebut dan menghapus gambar-gambar tadi.
 
 Untuk fungsi att kita akan menggunakan 2 awk dimana awk pertama akan mencari line `LOGIN: INFO User $username logged in` dengan acuan `$username` sebagai nama user yang sedang dicari dan `LOGIN: ERROR Failed login attempt on user $username` dengan metode yang sama.
+
+![File .sh](Gambar/soal1_5.PNG)
+
+Download pertama
+
+![File .sh](Gambar/soal1_6.PNG)
+
+Download Kedua
+
+![File .sh](Gambar/soal1_7.PNG)
+
+Pemanggilan att:
+
+![File .sh](Gambar/soal1_8.PNG)
+
 ## Kendala yang dialami
 1. Di register, output untuk feedback user tidak ada, tetapi asisten tidak mempersoalkan tersebut.
 
