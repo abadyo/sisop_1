@@ -257,8 +257,20 @@ Karena file log bersifat sensitif pastikan semua file log hanya dapat dibaca ole
 
 Pada setiap akhir code akan ditambahkan perintah `chmod 700` dimana itu hanya memberikan akses kepada user pemilik file dan menjadikan read only file.
 
-**Kendala yang Dialami**
+### Kendala yang Dialami
 
 Karena masih belum terbiasa menggunakan cron job pada waktu pengumpulan soal shift menggunakan infinite while dengan sleep sebanyak 60 detik/1 menit untuk `minute_log.sh` dan 3600 detik/1 jam untuk `aggregate_minutes_to_hourly_log.sh`.
 
-*Masukan Gambar Disini*
+### Gambar Pendukung
+
+Hasil pendataan log:
+
+![MINUTES_LOG](Gambar/metrics_log_minutes_no_3.png)
+
+Kode Cron:
+
+![CRON](Gambar/cron_no_3.png)
+
+Hasil Agregasi log:
+
+![Hourly_log](Gambar/aggregate_minutes_t_hourly_no_3.png)
