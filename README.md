@@ -129,6 +129,8 @@ if [ ! -d ./ forensic_log_website_daffainfo_log ] then
     mkdir ./ forensic_log_website_daffainfo_log
 fi
 ```
+![Directory folder](Gambar/soal2_1.PNG)
+
 2. Untuk mencari rata-rata, ambil string jam tiap request. lalu masukkan ke dalam array  tiap jam. Saat dimasukkan, tambah nilai 1. Kemudian lakukan loop untuk menghitung banyak jam dan menjumlah total akses tiap jam. Kemudian bagi jumlah akses dengan total jam untuk mencari rata-rata. Output dimasukkan ke dalam rata-rata.txt.
 ```bash
 
