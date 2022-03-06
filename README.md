@@ -267,12 +267,12 @@ Karena masih belum terbiasa menggunakan cron job pada waktu pengumpulan soal shi
 
 Hasil pendataan log:
 
-![MINUTES_LOG](https://gitlab.com/sisop_warrior/soal-shift-sisop-modul-1-ita13-2022/-/blob/main/Gambar/metrics_log_minutes_no_3.PNG?raw=true)
+![MINUTES_LOG](Gambar/metrics_log_minutes_no_3.PNG)
 
 Kode Cron:
 
-![CRON](https://gitlab.com/sisop_warrior/soal-shift-sisop-modul-1-ita13-2022/-/blob/main/Gambar/cron_no_3.PNG?raw=true)
+![CRON](Gambar/cron_no_3.PNG)
 
 Hasil Agregasi log:
 
-![alt text](https://gitlab.com/sisop_warrior/soal-shift-sisop-modul-1-ita13-2022/-/blob/main/Gambar/aggregate_minutes_t_hourly_no_3.PNG?raw=true)
+![alt text](Gambar/aggregate_minutes_t_hourly_no_3.PNG)
