@@ -32,6 +32,8 @@ Kita akan membuat 2 file shell yaitu
 [register.sh](https://gitlab.com/sisop_warrior/soal-shift-siop-modul-1-it13-2022/-/blob/main/soal1/register.sh) menangani register user baru
 dan 
 [main.sh](https://gitlab.com/sisop_warrior/soal-shift-siop-modul-1-it13-2022/-/blob/main/soal1/main.sh) yang menangani kegiatan login user*
+![Directory user](Gambar/soal1_1.PNG)
+![File .sh](Gambar/soal1_2.PNG)
 
 ### Soal 1b.
 
@@ -115,6 +117,10 @@ Lalu untuk penamaan file yang akan didownload kita akan menggunakan acuan `hitun
 Setelah gambar sudah didownload dan dinamai, kita akan zip direktori tersebut dan menghapus gambar-gambar tadi.
 
 Untuk fungsi att kita akan menggunakan 2 awk dimana awk pertama akan mencari line `LOGIN: INFO User $username logged in` dengan acuan `$username` sebagai nama user yang sedang dicari dan `LOGIN: ERROR Failed login attempt on user $username` dengan metode yang sama.
+## Kendala yang dialami
+1. Di register, output untuk feedback user tidak ada, tetapi asisten tidak mempersoalkan tersebut.
+
+
 # Soal 2
 
 Pembahasan soal no 2
@@ -149,6 +155,8 @@ cat log_website_daffainfo.log | awk '{gsub(/"/, "", $1); print $1 }' | awk -F: '
 ```
 dimana ```awk '{gsub(/"/, "", $1); print $1 }' | awk -F: '/2022/ {gsub(/:/, " ", $1); arr[$3]++} ``` berfungsi untuk mengambil string jam masing-masing dan memasukkan nilai ke dalam array sekaligus increment value dari alamat array tersebut agar menyimpan berapa banyak ip address yang mengakses pada jam itu.
 Setelah itu dilakukan algoritma rata-rata dengan menghitung total aktivitas dibagi jam yang ada.
+![isi txt](Gambar/soal2_2.PNG)
+![ratarata.txt](Gambar/soal2_3.PNG)
 
 3. Untuk mencari IP address terbanyak, ambil string IP address pertama. lalu masukkan ke dalam string, yang mana akan tambah satu tiap string sama ditemukan. Lalu melakukan algoritma menemukan nilai terbesar dalam array.
 ```bash
@@ -185,6 +193,7 @@ cat log_website_daffainfo.log | awk -F: '/2022:02/ {gsub(/"/, "", $1) arr[$1]++ 
      }' >> ./folder/result.txt
 ``` 
 dimana```awk -F: '/2022:02/ {gsub(/"/, "", $1) arr[$1]++ }``` berfungsi untuk memasukkan IP address di paremeter pertama ke dalam array. (untuk perhitungan di biarkan ada)
+![Result.txt](Gambar/soal_4.PNG)
 
 ## Kendala yang dialami
 1. Awal-awal masih tidak tahu cara mengakses log di website, tetapi baru ditemukan file lognya H-1.
